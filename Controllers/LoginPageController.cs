@@ -5,7 +5,7 @@ namespace CampsiteReservationApp.Controllers
     public class LoginPageController : Controller
     {
         // Every public method in a controller is an HTTP endpoint
-        // GET: /LoginPage/
+        // GET: /LoginPage/Login
         public ActionResult Login()
         {
             return View();
