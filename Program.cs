@@ -1,4 +1,9 @@
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using CampsiteReservationApp.Data;
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<CampsiteReservationAppContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CampsiteReservationAppContext") ?? throw new InvalidOperationException("Connection string 'CampsiteReservationAppContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
