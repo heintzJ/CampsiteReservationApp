@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CampsiteReservationApp.Data;
 using CampsiteReservationApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace CampsiteReservationApp.Controllers
 {
+    [Authorize]
     public class UsersController : Controller
     {
         // this constructor uses dependency injection to inject the db context into the controller
