@@ -7,11 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CampsiteReservationApp.Data;
 using CampsiteReservationApp.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CampsiteReservationApp.Controllers
 {
-    [Authorize]
     public class UsersController : Controller
     {
         // this constructor uses dependency injection to inject the db context into the controller
@@ -59,10 +57,11 @@ namespace CampsiteReservationApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Username,Password,DateJoined")] User user)
+        public async Task<IActionResult> Create([Bind("ID,FirstName,LastName,Email,Password,DateJoined")] User user)
         {
             if (ModelState.IsValid)
             {
+                user.DateJoined = DateOnly.FromDateTime(DateTime.Today);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -91,7 +90,7 @@ namespace CampsiteReservationApp.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Username,Password,DateJoined")] User user)
+        public async Task<IActionResult> Edit(int id, [Bind("ID,FirstName,LastName,Email,Password,DateJoined")] User user)
         {
             if (id != user.ID)
             {

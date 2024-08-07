@@ -5,7 +5,6 @@ namespace CampsiteReservationApp.Controllers
 {
     public class CampgroundsController : Controller
     {
-        [Authorize]
         public IActionResult CampgroundList()
         {
             return View();

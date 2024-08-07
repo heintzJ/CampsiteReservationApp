@@ -1,6 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using CampsiteReservationApp.Data;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.Cookies;
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<CampsiteReservationAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CampsiteReservationAppContext") ?? throw new InvalidOperationException("Connection string 'CampsiteReservationAppContext' not found.")));

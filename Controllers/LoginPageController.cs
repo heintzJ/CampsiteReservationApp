@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 
 namespace CampsiteReservationApp.Controllers
 {
-    [AllowAnonymous]
     public class LoginPageController : Controller
     {
         // Every public method in a controller is an HTTP endpoint
