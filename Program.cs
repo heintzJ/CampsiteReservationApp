@@ -1,15 +1,20 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using CampsiteReservationApp.Data;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.Cookies;
+
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.AddDbContext<CampsiteReservationAppContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("CampsiteReservationAppContext") ?? throw new InvalidOperationException("Connection string 'CampsiteReservationAppContext' not found.")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddCookie(options =>
+            {
+                options.LoginPath = "/LoginPage/Login";
+            });
 
 var app = builder.Build();
 
@@ -26,6 +31,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(

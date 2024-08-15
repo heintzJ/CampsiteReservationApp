@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CampsiteReservationApp.Data;
 using CampsiteReservationApp.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace CampsiteReservationApp.Controllers
 {
@@ -62,9 +63,15 @@ namespace CampsiteReservationApp.Controllers
             if (ModelState.IsValid)
             {
                 user.DateJoined = DateOnly.FromDateTime(DateTime.Today);
+                var passwordHasher = new PasswordHasher<User>();
+                user.Password = passwordHasher.HashPassword(user, user.Password);
                 _context.Add(user);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+
+                // just set a cookie to indicate that the user has logged in by creating an account
+                Response.Cookies.Append("userLoggedIn", "1");
+
+                return RedirectToAction("Login", "LoginPage");
             }
             return View(user);
         }
